@@ -123,6 +123,8 @@ class WinkBulb(WinkBinarySwitch):
         return {}
 
     def supports_rgb(self):
+        if self.supports_hue_saturation():
+            return False
         capabilities = self.json_state.get('capabilities', {})
         cap_fields = capabilities.get('fields', [])
         for field in cap_fields:

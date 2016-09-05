@@ -1,5 +1,8 @@
 # Change Log
 
+## 0.7.14
+- If light supports rgb and hsv default to hsv only
+
 ## 0.7.13
 - Changed method of detecting WinkBulb capabilities
 

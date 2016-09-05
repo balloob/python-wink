@@ -99,7 +99,7 @@ class BulbSupportsRGBTest(unittest.TestCase):
         self.assertFalse(supports_rgb,
                         msg="Expected rgb to be un-supported")
 
-    def test_should_be_true_if_response_contains_rgb_capabilities(self):
+    def test_should_be_false_if_response_contains_rgb_capabilities_and_hsb_capabilities(self):
         with open('{}/api_responses/rgb_present.json'.format(os.path.dirname(__file__))) as light_file:
             response_dict = json.load(light_file)
         devices = get_devices_from_response_dict(response_dict, DEVICE_ID_KEYS[device_types.LIGHT_BULB])
@@ -107,7 +107,7 @@ class BulbSupportsRGBTest(unittest.TestCase):
         bulb = devices[0]
         """ :type bulb: pywink.devices.standard.WinkBulb """
         supports_rgb = bulb.supports_rgb()
-        self.assertTrue(supports_rgb,
+        self.assertFalse(supports_rgb,
                         msg="Expected rgb to be supported")
 
 class SetStateTests(unittest.TestCase):

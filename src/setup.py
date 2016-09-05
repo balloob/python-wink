@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(name='python-wink',
-      version='0.7.13',
+      version='0.7.14',
       description='Access Wink devices via the Wink API',
       url='http://github.com/bradsk88/python-wink',
       author='Brad Johnson',

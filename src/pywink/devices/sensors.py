@@ -4,9 +4,9 @@ from pywink.devices.base import WinkDevice
 
 class _WinkCapabilitySensor(WinkDevice):
 
-    def __init__(self, device_state_as_json, api_interface, capability, unit):
+    def __init__(self, device_state_as_json, api_interface, capability, unit, objectprefix="sensor_pods"):
         super(_WinkCapabilitySensor, self).__init__(device_state_as_json, api_interface,
-                                                    objectprefix="sensor_pods")
+                                                    objectprefix=objectprefix)
         self._capability = capability
         self.unit = unit
 
@@ -40,8 +40,6 @@ class _WinkCapabilitySensor(WinkDevice):
 
     def device_id(self):
         root_name = self.json_state.get('sensor_pod_id', None)
-        if root_name is None:
-            root_name = self.json_state.get('smoke_detector_id', self.name())
         return '{}+{}'.format(root_name, self._capability)
 
     def update_state(self, require_desired_state_fulfilled=False):
@@ -259,7 +257,7 @@ class WinkCurrencySensor(_WinkCapabilitySensor):
     def __init__(self, device_state_as_json, api_interface):
         super(WinkCurrencySensor, self).__init__(device_state_as_json, api_interface,
                                                  self.CAPABILITY,
-                                                 self.UNIT)
+                                                 self.UNIT, 'piggy_bank')
 
     @property
     def available(self):
@@ -281,6 +279,13 @@ class WinkCurrencySensor(_WinkCapabilitySensor):
         """
         return self.last_reading()
 
+    def update_state(self, require_desired_state_fulfilled=False):
+        """ Update state with latest info from Wink API. """
+        root_name = self.json_state.get('piggy_bank_id', self.name())
+        response = self.api_interface.get_device_state(self, root_name)
+        self._update_state_from_response(response,
+                                         require_desired_state_fulfilled=require_desired_state_fulfilled)
+
 
 class WinkSmokeDetector(_WinkCapabilitySensor):
 
@@ -290,7 +295,7 @@ class WinkSmokeDetector(_WinkCapabilitySensor):
     def __init__(self, device_state_as_json, api_interface):
         super(WinkSmokeDetector, self).__init__(device_state_as_json, api_interface,
                                                 self.CAPABILITY,
-                                                self.UNIT)
+                                                self.UNIT, 'smoke_detectors')
 
     def smoke_detected_boolean(self):
         """
@@ -298,6 +303,17 @@ class WinkSmokeDetector(_WinkCapabilitySensor):
         :rtype: bool
         """
         return self.last_reading()
+
+    def device_id(self):
+        root_name = self.json_state.get('smoke_detector_id', None)
+        return '{}+{}'.format(root_name, self._capability)
+
+    def update_state(self, require_desired_state_fulfilled=False):
+        """ Update state with latest info from Wink API. """
+        root_name = self.json_state.get('smoke_detector_id', self.name())
+        response = self.api_interface.get_device_state(self, root_name)
+        self._update_state_from_response(response,
+                                         require_desired_state_fulfilled=require_desired_state_fulfilled)
 
 
 class WinkCoDetector(_WinkCapabilitySensor):
@@ -308,7 +324,7 @@ class WinkCoDetector(_WinkCapabilitySensor):
     def __init__(self, device_state_as_json, api_interface):
         super(WinkCoDetector, self).__init__(device_state_as_json, api_interface,
                                              self.CAPABILITY,
-                                             self.UNIT)
+                                             self.UNIT, 'smoke_detectors')
 
     def co_detected_boolean(self):
         """
@@ -316,3 +332,14 @@ class WinkCoDetector(_WinkCapabilitySensor):
         :rtype: bool
         """
         return self.last_reading()
+
+    def device_id(self):
+        root_name = self.json_state.get('smoke_detector_id', None)
+        return '{}+{}'.format(root_name, self._capability)
+
+    def update_state(self, require_desired_state_fulfilled=False):
+        """ Update state with latest info from Wink API. """
+        root_name = self.json_state.get('smoke_detector_id', self.name())
+        response = self.api_interface.get_device_state(self, root_name)
+        self._update_state_from_response(response,
+                                         require_desired_state_fulfilled=require_desired_state_fulfilled)

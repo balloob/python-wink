@@ -1,4 +1,7 @@
 # Change Log
+## 0.10.1
+- Set the correct objectprefix for Wink Smoke/CO detectors and Piggy banks
+
 ## 0.10.0
 - Support for Thermostats
 

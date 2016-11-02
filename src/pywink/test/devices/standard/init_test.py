@@ -443,6 +443,15 @@ class PorkfolioTests(unittest.TestCase):
         device_id = devices[1].device_id()
         self.assertRegex(device_id, "^[0-9]{4,6}")
 
+    def test_objectprefix_should_be_correct(self):
+        with open('{}/api_responses/porkfolio.json'.format(os.path.dirname(__file__))) as porkfolio_file:
+            response_dict = json.load(porkfolio_file)
+        devices = get_devices_from_response_dict(response_dict, DEVICE_ID_KEYS[device_types.PIGGY_BANK])
+        objectprefix = devices[0].objectprefix
+        self.assertRegex(objectprefix, "piggy_bank")
+        objectprefix = devices[1].objectprefix
+        self.assertRegex(objectprefix, "piggy_bank")
+
 class RelaySensorTests(unittest.TestCase):
 
     def setUp(self):
@@ -490,4 +499,13 @@ class SmokeDetectorTests(unittest.TestCase):
         devices = get_devices_from_response_dict(response_dict, DEVICE_ID_KEYS[device_types.SMOKE_DETECTOR])
         device_id = devices[0].device_id()
         self.assertRegex(device_id, "^[0-9]{4,6}")
+
+    def test_objectprefix_should_be_correct(self):
+        with open('{}/api_responses/smoke_detector.json'.format(os.path.dirname(__file__))) as smoke_detector_file:
+            response_dict = json.load(smoke_detector_file)
+        devices = get_devices_from_response_dict(response_dict, DEVICE_ID_KEYS[device_types.SMOKE_DETECTOR])
+        objectprefix = devices[0].objectprefix
+        self.assertRegex(objectprefix, "smoke_detectors")
+        objectprefix = devices[1].objectprefix
+        self.assertRegex(objectprefix, "smoke_detectors")
 

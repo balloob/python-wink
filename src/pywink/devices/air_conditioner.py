@@ -71,7 +71,7 @@ class WinkAirConditioner(WinkDevice):
 
         self._update_state_from_response(response)
 
-    def set_mode(self, mode):
+    def set_operation_mode(self, mode):
         """
         :param mode: a string one of ["off", "auto_eco", "cool_only", "fan_only"]
         :return: nothing

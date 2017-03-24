@@ -1,5 +1,8 @@
 # Change Log
 
+## 1.2.3
+- Bugfix for Wink Aros Setting Operation Mode
+
 ## 1.2.2
 - Siren inherts from Base device
 

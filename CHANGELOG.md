@@ -1,5 +1,8 @@
 # Change Log
 
+## 1.2.2
+- Siren inherts from Base device
+
 ## 1.2.1
 - Set default endpoint in wink_api_fetch
 

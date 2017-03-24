@@ -290,7 +290,7 @@ class ApiTests(unittest.TestCase):
         for device in devices:
             device.api_interface = self.api_interface
             old_states[device.object_id()] = device.state()
-            device.set_mode("cool_only")
+            device.set_operation_mode("cool_only")
             device.set_temperature(70)
             device.set_schedule_enabled(False)
             device.set_ac_fan_speed(0.5)

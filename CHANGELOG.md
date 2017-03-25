@@ -1,5 +1,8 @@
 # Change Log
 
+## 1.2.3
+- Wink Aros Bugfix
+
 ## 1.2.2
 - Siren inherts from Base device
 

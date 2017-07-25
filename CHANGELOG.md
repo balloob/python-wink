@@ -1,5 +1,8 @@
 # Change Log
 
+## 1.4.1
+- Added timeout to local control calls
+
 ## 1.4.0
 - Local control support for lights, locks, and switches
 

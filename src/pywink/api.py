@@ -86,10 +86,14 @@ class WinkApiInterface(object):
             url_string = "https://{}:8888/{}s/{}".format(hub["ip"],
                                                          object_type,
                                                          local_id)
-            arequest = requests.put(url_string,
-                                    data=json.dumps(state),
-                                    headers=LOCAL_API_HEADERS,
-                                    verify=False)
+            try:
+                arequest = requests.put(url_string,
+                                        data=json.dumps(state),
+                                        headers=LOCAL_API_HEADERS,
+                                        verify=False, timeout=3)
+            except requests.exceptions.ReadTimeout:
+                _LOGGER.error("Timeout sending local control request. Sending request online")
+                return self.set_device_state(device, state, id_override, type_override)
             response_json = arequest.json()
             _LOGGER.debug(response_json)
             temp_state = device.json_state
@@ -134,9 +138,13 @@ class WinkApiInterface(object):
             url_string = "https://{}:8888/{}s/{}".format(ip,
                                                          object_type,
                                                          local_id)
-            arequest = requests.get(url_string,
-                                    headers=LOCAL_API_HEADERS,
-                                    verify=False)
+            try:
+                arequest = requests.get(url_string,
+                                        headers=LOCAL_API_HEADERS,
+                                        verify=False, timeout=3)
+            except requests.exceptions.ReadTimeout:
+                _LOGGER.error("Timeout sending local control request. Sending request online")
+                return self.get_device_state(device, id_override, type_override)
             response_json = arequest.json()
             _LOGGER.debug(response_json)
             temp_state = device.json_state

@@ -1,5 +1,8 @@
 # Change Log
 
+## 1.4.2
+- Changed try/except in local control calls to catch all errors
+
 ## 1.4.1
 - Added timeout to local control calls
 

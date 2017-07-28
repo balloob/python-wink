@@ -91,8 +91,8 @@ class WinkApiInterface(object):
                                         data=json.dumps(state),
                                         headers=LOCAL_API_HEADERS,
                                         verify=False, timeout=3)
-            except requests.exceptions.ReadTimeout:
-                _LOGGER.error("Timeout sending local control request. Sending request online")
+            except: 
+                _LOGGER.error("Error sending local control request. Sending request online")
                 return self.set_device_state(device, state, id_override, type_override)
             response_json = arequest.json()
             _LOGGER.debug(response_json)
@@ -142,8 +142,8 @@ class WinkApiInterface(object):
                 arequest = requests.get(url_string,
                                         headers=LOCAL_API_HEADERS,
                                         verify=False, timeout=3)
-            except requests.exceptions.ReadTimeout:
-                _LOGGER.error("Timeout sending local control request. Sending request online")
+            except:
+                _LOGGER.error("Error sending local control request. Sending request online")
                 return self.get_device_state(device, id_override, type_override)
             response_json = arequest.json()
             _LOGGER.debug(response_json)

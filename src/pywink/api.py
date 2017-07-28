@@ -71,6 +71,7 @@ class WinkApiInterface(object):
         _LOGGER.debug(response_json)
         return response_json
 
+    # pylint: disable=bare-except
     def local_set_state(self, device, state, id_override=None, type_override=None):
         if ALLOW_LOCAL_CONTROL:
             if device.local_id() is not None:
@@ -91,7 +92,7 @@ class WinkApiInterface(object):
                                         data=json.dumps(state),
                                         headers=LOCAL_API_HEADERS,
                                         verify=False, timeout=3)
-            except: 
+            except:
                 _LOGGER.error("Error sending local control request. Sending request online")
                 return self.set_device_state(device, state, id_override, type_override)
             response_json = arequest.json()
@@ -117,6 +118,7 @@ class WinkApiInterface(object):
         _LOGGER.debug(response_json)
         return response_json
 
+    # pylint: disable=bare-except
     def local_get_state(self, device, id_override=None, type_override=None):
         """
         :type device: WinkDevice

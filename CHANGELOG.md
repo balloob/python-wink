@@ -1,5 +1,8 @@
 # Change Log
 
+## 1.5.2
+- Fixed firmware update and added device deletion
+
 ## 1.5.1
 - Support all binary_switches which use a binary field of powered or opened
 

@@ -78,7 +78,7 @@ class WinkApiInterface(object):
             else:
                 raise WinkAPIException("Failed to refresh access token.")
         response_json = arequest.json()
-        _LOGGER.debug(response_json)
+        _LOGGER.debug('%s', response_json)
         return response_json
 
     # pylint: disable=bare-except
@@ -120,7 +120,7 @@ class WinkApiInterface(object):
                 _LOGGER.error("Error sending local control request. Sending request online")
                 return self.set_device_state(device, state, id_override, type_override)
             response_json = arequest.json()
-            _LOGGER.debug(response_json)
+            _LOGGER.debug('%s', response_json)
             temp_state = device.json_state
             for key, value in response_json["data"]["last_reading"].items():
                 temp_state["last_reading"][key] = value
@@ -149,7 +149,7 @@ class WinkApiInterface(object):
                                         object_type, object_id)
         arequest = requests.get(url_string, headers=API_HEADERS)
         response_json = arequest.json()
-        _LOGGER.debug(response_json)
+        _LOGGER.debug('%s', response_json)
         return response_json
 
     # pylint: disable=bare-except
@@ -193,7 +193,7 @@ class WinkApiInterface(object):
                 _LOGGER.error("Error sending local control request. Sending request online")
                 return self.get_device_state(device, id_override, type_override)
             response_json = arequest.json()
-            _LOGGER.debug(response_json)
+            _LOGGER.debug('%s', response_json)
             temp_state = device.json_state
             for key, value in response_json["data"]["last_reading"].items():
                 temp_state["last_reading"][key] = value
@@ -298,8 +298,7 @@ def set_bearer_token(token):
 
 
 def legacy_set_wink_credentials(email, password, client_id, client_secret):
-    log_string = "Email: %s Password: %s Client_id: %s Client_secret: %s" % (email, password, client_id, client_secret)
-    _LOGGER.debug(log_string)
+    _LOGGER.debug("Email: %s Password: %s Client_id: %s Client_secret: %s", email, password, client_id, client_secret)
     global CLIENT_ID, CLIENT_SECRET, REFRESH_TOKEN
 
     CLIENT_ID = client_id
@@ -325,9 +324,8 @@ def legacy_set_wink_credentials(email, password, client_id, client_secret):
 
 
 def set_wink_credentials(client_id, client_secret, access_token, refresh_token):
-    log_string = "Client_id: %s Client_secret: %s Access_token: %s Refreash_token: %s" % (client_id, client_secret,
-                                                                                          access_token, refresh_token)
-    _LOGGER.debug(log_string)
+    _LOGGER.debug("Client_id: %s Client_secret: %s Access_token: %s Refreash_token: %s",
+                  client_id, client_secret, access_token, refresh_token)
     global CLIENT_ID, CLIENT_SECRET, REFRESH_TOKEN
 
     CLIENT_ID = client_id
@@ -367,7 +365,7 @@ def refresh_access_token():
 
 
 def get_authorization_url(client_id, redirect_uri):
-    _LOGGER.debug("Client_id: " + client_id + " redirect_uri: " + redirect_uri)
+    _LOGGER.debug("Client_id: %s redirect_uri: %s", client_id, redirect_uri)
     global CLIENT_ID
 
     CLIENT_ID = client_id
@@ -376,7 +374,7 @@ def get_authorization_url(client_id, redirect_uri):
 
 
 def request_token(code, client_secret):
-    _LOGGER.debug("code: " + code + " Client_secret: " + client_secret)
+    _LOGGER.debug("code: %s Client_secret: %s", code, client_secret)
     data = {
         "client_secret": client_secret,
         "grant_type": "authorization_code",
@@ -388,7 +386,7 @@ def request_token(code, client_secret):
     response = requests.post('{}/oauth2/token'.format(WinkApiInterface.BASE_URL),
                              data=json.dumps(data),
                              headers=headers)
-    _LOGGER.debug(response)
+    _LOGGER.debug('%s', response)
     response_json = response.json()
     access_token = response_json.get('access_token')
     refresh_token = response_json.get('refresh_token')
@@ -398,12 +396,12 @@ def request_token(code, client_secret):
 def get_user():
     url_string = "{}/users/me".format(WinkApiInterface.BASE_URL)
     arequest = requests.get(url_string, headers=API_HEADERS)
-    _LOGGER.debug(arequest)
+    _LOGGER.debug('%s', arequest)
     return arequest.json()
 
 
 def get_local_control_access_token(local_control_id):
-    _LOGGER.debug("Local_control_id: " + local_control_id)
+    _LOGGER.debug("Local_control_id: %s", local_control_id)
     if CLIENT_ID and CLIENT_SECRET and REFRESH_TOKEN:
         data = {
             "client_id": CLIENT_ID,
@@ -419,7 +417,7 @@ def get_local_control_access_token(local_control_id):
         response = requests.post('{}/oauth2/token'.format(WinkApiInterface.BASE_URL),
                                  data=json.dumps(data),
                                  headers=headers)
-        _LOGGER.debug(response)
+        _LOGGER.debug('%s', response)
         response_json = response.json()
         access_token = response_json.get('access_token')
         return access_token
@@ -576,7 +574,7 @@ def get_subscription_key_from_response_dict(device):
 def wink_api_fetch(end_point='wink_devices'):
     arequest_url = "{}/users/me/{}".format(WinkApiInterface.BASE_URL, end_point)
     response = requests.get(arequest_url, headers=API_HEADERS)
-    _LOGGER.debug(response)
+    _LOGGER.debug('%s', response)
     if response.status_code == 200:
         return response.json()
 

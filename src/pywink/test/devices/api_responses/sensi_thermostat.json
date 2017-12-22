@@ -43,7 +43,7 @@
       "humidity_updated_at":1477511203.5183966,
       "cool_active":false,
       "cool_active_updated_at":1477511203.5183966,
-      "heat_active":false,
+      "heat_active":true,
       "heat_active_updated_at":1477511203.5183966,
       "aux_active":false,
       "aux_active_updated_at":1477511203.5183966,

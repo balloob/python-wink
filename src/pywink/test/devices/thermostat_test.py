@@ -322,3 +322,23 @@ class ThermostatTests(unittest.TestCase):
         response_dict["data"] = device_list
         thermostat = get_devices_from_response_dict(response_dict, device_types.THERMOSTAT)[0]
         self.assertTrue(thermostat.is_on())
+
+    def test_thermostat_heat_on(self):
+        device_list = []
+        response_dict = {}
+        _json_file = open('{}/api_responses/sensi_thermostat.json'.format(os.path.dirname(__file__)))
+        device_list.append(json.load(_json_file))
+        _json_file.close()
+        response_dict["data"] = device_list
+        thermostat = get_devices_from_response_dict(response_dict, device_types.THERMOSTAT)[0]
+        self.assertTrue(thermostat.heat_on())
+
+    def test_thermostat_cool_on(self):
+        device_list = []
+        response_dict = {}
+        _json_file = open('{}/api_responses/sensi_thermostat.json'.format(os.path.dirname(__file__)))
+        device_list.append(json.load(_json_file))
+        _json_file.close()
+        response_dict["data"] = device_list
+        thermostat = get_devices_from_response_dict(response_dict, device_types.THERMOSTAT)[0]
+        self.assertFalse(thermostat.cool_on())

@@ -1,5 +1,8 @@
 # Change Log
 
+## 1.7.2
+- Added Nest Cam sensor support and fixed some lint errors
+
 ## 1.7.1
 - Extended lock feature can't be performed via local control. Set with online.
 - Cleaned up imports/tests/style

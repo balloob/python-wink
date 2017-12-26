@@ -91,7 +91,7 @@ def build_device(device_state_as_json, api_interface):
     elif object_type == device_types.CAMERA:
         if device_state_as_json.get("device_manufacturer") == "canary":
             new_objects.append(WinkCanaryCamera(device_state_as_json, api_interface))
-        elif device_state_as_json.get("device_manufacturer") == "dropcam":
+        else:
             new_objects.extend(__get_subsensors_from_device(device_state_as_json, api_interface))
     elif object_type == device_types.AIR_CONDITIONER:
         new_objects.append(WinkAirConditioner(device_state_as_json, api_interface))

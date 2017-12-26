@@ -95,6 +95,8 @@ class BaseTests(unittest.TestCase):
                 self.assertIsNone(device.battery_level())
             elif device.device_manufacturer() == "dropcam":
                 self.assertIsNone(device.battery_level())
+            elif device.model_name() == "Nest Cam":
+                self.assertIsNone(device.battery_level())
             elif device._last_reading.get('external_power'):
                 self.assertIsNone(device.battery_level())
             else:

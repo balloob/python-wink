@@ -72,7 +72,7 @@ class WinkHub(WinkDevice):
                 kidde_radio_code_int = int(kidde_radio_code, 2)
                 desired_state = {"kidde_radio_code": kidde_radio_code_int, "pairing_mode": None}
             except (TypeError, ValueError):
-                _LOGGER.error("An invalid Kidde radio code was provided. " + kidde_radio_code)
+                _LOGGER.error("An invalid Kidde radio code was provided. %s", kidde_radio_code)
 
         if pairing_device_type_selector is not None:
             desired_state.update({"pairing_device_type_selector": pairing_device_type_selector})

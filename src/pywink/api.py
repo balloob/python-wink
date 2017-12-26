@@ -3,10 +3,11 @@ import time
 import logging
 import urllib.parse
 
+import requests
+
 from pywink.devices import types as device_types
 from pywink.devices.factory import build_device
 
-import requests
 try:
     import urllib3
     from urllib3.exceptions import InsecureRequestWarning
@@ -152,7 +153,7 @@ class WinkApiInterface(object):
         _LOGGER.debug('%s', response_json)
         return response_json
 
-    # pylint: disable=bare-except
+    # pylint: disable=bare-except, too-many-locals
     def local_get_state(self, device, id_override=None, type_override=None):
         """
         Get device state via local API, and fall back to online API.
@@ -612,6 +613,9 @@ def get_devices(device_type, end_point="wink_devices"):
     elif end_point == "robots" or end_point == "scenes" or end_point == "groups":
         json_data = wink_api_fetch(end_point)
         return get_devices_from_response_dict(json_data, device_type)
+    else:
+        _LOGGER.error("Invalid endpoint %s", end_point)
+        return {}
 
 
 def get_devices_from_response_dict(response_dict, device_type):

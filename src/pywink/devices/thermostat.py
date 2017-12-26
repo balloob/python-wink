@@ -37,14 +37,14 @@ class WinkThermostat(WinkDevice):
         """
         nest = self._last_reading.get('users_away', None)
         ecobee = self.profile()
-        if nest is None and ecobee is None:
-            return None
-        elif nest is not None:
+        if nest is not None:
             return nest
         elif ecobee is not None:
             if ecobee == "home":
                 return False
             return True
+        else:
+            return None
 
     def current_hvac_mode(self):
         return self._last_reading.get('mode', None)

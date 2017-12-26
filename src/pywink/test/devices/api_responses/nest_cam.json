@@ -1,0 +1,106 @@
+{
+  "object_type": "camera",
+  "object_id": "180660",
+  "uuid": "589d8030-e993-433f-b9d9-df8b308d6380",
+  "icon_id": null,
+  "icon_code": null,
+  "desired_state": {
+    "capturing_video": false
+  },
+  "last_reading": {
+    "connection": true,
+    "connection_updated_at": 1514258320.157,
+    "capturing_audio": true,
+    "capturing_audio_updated_at": 1514258320.157,
+    "capturing_video": false,
+    "capturing_video_updated_at": 1514258320.157,
+    "motion": false,
+    "motion_updated_at": 1514258320.157,
+    "loudness": false,
+    "loudness_updated_at": 1514258346.0296662,
+    "has_recording_plan": false,
+    "has_recording_plan_updated_at": 1514258320.157,
+    "snapshot_url": "https://www.dropcam.com/api/wwn.get_snapshot/CjZLUUlDMjViUVRNNmlEVWRVanVzZWdXZGRfRGJLODYxVnQ5VE1ES2ExYkMxTWNkZFVLRzIydncSFlBuR3dFZFYtRXhrM0pyWXFiVDEyX1EaNkZlQnhYWmR4RnZ2bU9PbFdsTkpLaHlpUnhGMVFQRTJjMGtYSFBENUhOYVF3VGRsSndybFJMQQ",
+    "snapshot_url_updated_at": 1514258320.157,
+    "motion_true": "N/A",
+    "motion_true_updated_at": 1514256558.012,
+    "loudness_true": null,
+    "loudness_true_updated_at": null,
+    "desired_capturing_video_updated_at": 1514258320.3500347,
+    "connection_changed_at": 1514156780.0832539,
+    "capturing_audio_changed_at": 1514156780.3520112,
+    "capturing_video_changed_at": 1514258320.157,
+    "has_recording_plan_changed_at": 1514156780.3520112,
+    "snapshot_url_changed_at": 1514258320.157,
+    "motion_changed_at": 1514256566.2055306,
+    "loudness_changed_at": 1514258346.0296662,
+    "motion_true_changed_at": 1514256558.012,
+    "desired_capturing_video_changed_at": 1514258320.3500347
+  },
+  "subscription": {
+    "pubnub": {
+      "subscribe_key": "sub-c-f7bf7f7e-0542-11a5e8-02ee2ddafe",
+      "channel": "bb09aa7d1ac2319b0923289bda8d77877bf|camera-1800|user-7684"
+    }
+  },
+  "camera_id": "180660",
+  "name": "Backyard Camera",
+  "locale": "en_us",
+  "units": {},
+  "created_at": 1514156780,
+  "hidden_at": null,
+  "capabilities": {
+    "fields": [
+      {
+        "type": "boolean",
+        "field": "connection",
+        "mutability": "read-only"
+      },
+      {
+        "type": "boolean",
+        "field": "capturing_audio",
+        "mutability": "read-only"
+      },
+      {
+        "type": "boolean",
+        "field": "capturing_video",
+        "mutability": "read-write"
+      },
+      {
+        "type": "boolean",
+        "field": "motion",
+        "mutability": "read-only"
+      },
+      {
+        "type": "boolean",
+        "field": "loudness",
+        "mutability": "read-only"
+      },
+      {
+        "type": "boolean",
+        "field": "has_recording_plan",
+        "mutability": "read-only"
+      },
+      {
+        "type": "string",
+        "field": "snapshot_url",
+        "mutability": "read-only"
+      }
+    ],
+    "home_security_device": true,
+    "excludes_robot_effect": true
+  },
+  "manufacturer_device_model": "nest",
+  "manufacturer_device_id": "KQIC25bQTM6iDUdUjusegWdd_DbK861Vt9TMDKa1bC1McddUKG22vw",
+  "device_manufacturer": "nest",
+  "model_name": "Nest Cam",
+  "upc_id": "754",
+  "upc_code": "nest_cam",
+  "primary_upc_code": "nest_cam",
+  "linked_service_id": "914890",
+  "lat_lng": [
+    null,
+    null
+  ],
+  "location": ""
+} 

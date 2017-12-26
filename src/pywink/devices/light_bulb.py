@@ -163,3 +163,4 @@ def _get_color_as_hue_saturation_brightness(hue_sat):
     if hue_sat:
         color_hs_iter = iter(hue_sat)
         return next(color_hs_iter), next(color_hs_iter), 1
+    return None

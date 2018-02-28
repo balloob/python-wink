@@ -1,0 +1,79 @@
+{
+   "group_id":"98985",
+   "name":"Sun room shades",
+   "order":0,
+   "icon_id":"28",
+   "members":[
+      {
+         "object_type":"shade",
+         "object_id":"1889",
+         "local_id":"36",
+         "hub_id":"57222",
+         "blacklisted_readings":[
+
+         ]
+      },
+      {
+         "object_type":"shade",
+         "object_id":"1889",
+         "local_id":"37",
+         "hub_id":"57222",
+         "blacklisted_readings":[
+
+         ]
+      },
+      {
+         "object_type":"shade",
+         "object_id":"1889",
+         "local_id":"38",
+         "hub_id":"57222",
+         "blacklisted_readings":[
+
+         ]
+      },
+      {
+         "object_type":"shade",
+         "object_id":"1944",
+         "local_id":"46",
+         "hub_id":"57222",
+         "blacklisted_readings":[
+
+         ]
+      }
+   ],
+   "reading_aggregation":{
+      "level":{
+         "min":null,
+         "max":null,
+         "average":null,
+         "updated_at":null,
+         "changed_at":null
+      },
+      "connection":{
+         "or":true,
+         "and":true,
+         "true_count":4,
+         "false_count":0,
+         "updated_at":1519745868.4973416,
+         "changed_at":1518642700.4076774
+      },
+      "position":{
+         "min":0.0,
+         "max":0.0,
+         "average":0.0,
+         "updated_at":1519745868.4973416,
+         "changed_at":1519745867.0899253
+      }
+   },
+   "automation_mode":null,
+   "hidden_at":null,
+   "object_type":"group",
+   "object_id":"98985",
+   "icon_code":"group-light_group",
+   "subscription":{
+      "pubnub":{
+         "subscribe_key":"sub-c-f7bf7f7e-0542-11e3-a5e8-",
+         "channel":""
+      }
+   }
+}

@@ -30,6 +30,7 @@ from pywink.devices.scene import WinkScene
 from pywink.devices.light_group import WinkLightGroup
 from pywink.devices.binary_switch_group import WinkBinarySwitchGroup
 from pywink.devices.water_heater import WinkWaterHeater
+from pywink.devices.shade_group import WinkShadeGroup
 
 
 # pylint: disable=too-many-branches, too-many-statements
@@ -104,8 +105,11 @@ def build_device(device_state_as_json, api_interface):
     elif object_type == device_types.GROUP:
         # This will skip auto created groups that Wink creates as well has empty groups
         if device_state_as_json.get("name")[0] not in [".", "@"] and device_state_as_json.get("members"):
-            # This is a group of swithces
-            if device_state_as_json.get("reading_aggregation").get("brightness") is None:
+            # This is a group of shades
+            if device_state_as_json.get("reading_aggregation").get("position") is not None:
+                new_objects.append(WinkShadeGroup(device_state_as_json, api_interface))
+            # This is a group of switches
+            elif device_state_as_json.get("reading_aggregation").get("brightness") is None:
                 new_objects.append(WinkBinarySwitchGroup(device_state_as_json, api_interface))
             # This is a group of lights
             else:

@@ -73,7 +73,7 @@ class LightBulbTests(unittest.TestCase):
                 _json_file.close()
         JSON_DATA["data"] = device_list
         all_groups = get_devices_from_response_dict(JSON_DATA, device_types.GROUP)
-        self.assertEqual(2, len(all_groups))
+        self.assertEqual(3, len(all_groups))
         device_list = []
         response_dict = {}
         _json_file = open('{}/api_responses/groups/light_group.json'.format(os.path.dirname(__file__)))

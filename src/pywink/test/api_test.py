@@ -267,6 +267,17 @@ class ApiTests(unittest.TestCase):
         for device in devices:
             self.assertTrue(device.state())
 
+    def test_get_shade_group_updated_state_from_api(self):
+        WinkApiInterface.BASE_URL = "http://localhost:" + str(self.port)
+        devices = get_shade_groups()
+        for device in devices:
+            device.api_interface = self.api_interface
+            # The Mock API only changes the "position" average
+            device.set_state(1.0)
+            device.update_state()
+        for device in devices:
+            self.assertEqual(device.state(), 1.0)
+
     def test_all_devices_local_control_id_is_not_decimal(self):
         WinkApiInterface.BASE_URL = "http://localhost:" + str(self.port)
         devices = get_all_devices()
@@ -641,14 +652,19 @@ class MockApiInterface():
             for dict_device in GROUPS.get('data'):
                 _object_id = dict_device.get("object_id")
                 if _object_id == object_id:
-                    set_state = state["desired_state"]["powered"]
-                    if set_state:
-                        dict_device["reading_aggregation"]["powered"]["true_count"] = 1
-                        dict_device["reading_aggregation"]["powered"]["false_count"] = 0
+                    set_state = state["desired_state"].get("powered")
+                    if set_state is not None:
+                        if set_state:
+                            dict_device["reading_aggregation"]["powered"]["true_count"] = 1
+                            dict_device["reading_aggregation"]["powered"]["false_count"] = 0
+                        else:
+                            dict_device["reading_aggregation"]["powered"]["true_count"] = 0
+                            dict_device["reading_aggregation"]["powered"]["false_count"] = 1
+                        return_dict["data"] = dict_device
                     else:
-                        dict_device["reading_aggregation"]["powered"]["true_count"] = 0
-                        dict_device["reading_aggregation"]["powered"]["false_count"] = 1
-                    return_dict["data"] = dict_device
+                        set_state = state["desired_state"].get("position")
+                        dict_device["reading_aggregation"]["position"]["average"] = set_state
+                        return_dict["data"] = dict_device
 
         return return_dict
 

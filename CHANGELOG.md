@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.8.0
+- Added support for shade groups
+- Automatically retry fetch calls after refreshing token
+
 ## 1.7.3
 - Return none for heat_on and cool_on if not supported by thermostat
 

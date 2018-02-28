@@ -6,3 +6,13 @@
 /src/python_wink.egg-info
 /.coverage
 /.idea/*
+
+htmlcov/
+
+src/\.eggs/
+
+src/dist/
+
+src/*tst\.py
+
+src/build/

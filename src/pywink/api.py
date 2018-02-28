@@ -573,6 +573,15 @@ def get_binary_switch_groups():
     return switch_groups
 
 
+def get_shade_groups():
+    shade_groups = []
+    for group in get_devices(device_types.GROUP, "groups"):
+        # Shades have a position
+        if group.json_state.get("reading_aggregation").get("position") is not None:
+            shade_groups.append(group)
+    return shade_groups
+
+
 def get_subscription_key():
     response_dict = wink_api_fetch()
     try:
@@ -588,14 +597,20 @@ def get_subscription_key_from_response_dict(device):
     return None
 
 
-def wink_api_fetch(end_point='wink_devices'):
+def wink_api_fetch(end_point='wink_devices', retry=True):
     arequest_url = "{}/users/me/{}".format(WinkApiInterface.BASE_URL, end_point)
     response = requests.get(arequest_url, headers=API_HEADERS)
     _LOGGER.debug('%s', response)
     if response.status_code == 200:
         return response.json()
     if response.status_code == 401:
-        raise WinkAPIException("401 Response from Wink API.  Maybe Bearer token is expired?")
+        # Attempt a token refresh and retry the fetch call
+        if retry:
+            refresh_access_token()
+            # Only retry once so pass in False for retry value
+            wink_api_fetch(end_point, False)
+        else:
+            raise WinkAPIException("401 Response from Wink API.")
     else:
         raise WinkAPIException("Unexpected")
 

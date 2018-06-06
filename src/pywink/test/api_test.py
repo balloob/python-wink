@@ -23,7 +23,7 @@ from pywink.devices.eggtray import WinkEggtray
 from pywink.devices.garage_door import WinkGarageDoor
 from pywink.devices.shade import WinkShade
 from pywink.devices.siren import WinkSiren
-from pywink.devices.fan import WinkFan
+from pywink.devices.fan import WinkFan, WinkGeZwaveFan
 from pywink.devices.thermostat import WinkThermostat
 from pywink.devices.button import WinkButton
 from pywink.devices.gang import WinkGang
@@ -109,7 +109,7 @@ class ApiTests(unittest.TestCase):
     def test_get_all_devices_from_api(self):
         WinkApiInterface.BASE_URL = "http://localhost:" + str(self.port)
         devices = get_all_devices()
-        self.assertEqual(len(devices), 76)
+        self.assertEqual(len(devices), 77)
         lights = get_light_bulbs()
         for light in lights:
             self.assertTrue(isinstance(light, WinkLightBulb))
@@ -161,7 +161,7 @@ class ApiTests(unittest.TestCase):
             self.assertTrue(isinstance(hub, WinkHub))
         fans = get_fans()
         for fan in fans:
-            self.assertTrue(isinstance(fan, WinkFan))
+            self.assertTrue(isinstance(fan, WinkFan) or isinstance(fan, WinkGeZwaveFan))
         buttons = get_buttons()
         for button in buttons:
             self.assertTrue(isinstance(button, WinkButton))
@@ -490,13 +490,20 @@ class ApiTests(unittest.TestCase):
         old_states = {}
         for device in devices:
             device.api_interface = self.api_interface
-            device.set_state(True, "auto")
-            device.set_fan_direction("reverse")
-            device.set_fan_timer(300)
+            if isinstance(device, WinkGeZwaveFan):
+                device.set_state(True, "high")
+            else:
+                device.set_state(True, "auto")
+                device.set_fan_direction("reverse")
+                device.set_fan_timer(300)
             device.update_state()
-        self.assertEqual(device.current_fan_speed(), "auto")
-        self.assertEqual(device.current_fan_direction(), "reverse")
-        self.assertEqual(device.current_timer(), 300)
+        for device in devices:
+            if isinstance(device, WinkGeZwaveFan):
+                self.assertEqual(device.current_fan_speed(), "high")
+            else:
+                self.assertEqual(device.current_fan_speed(), "auto")
+                self.assertEqual(device.current_fan_direction(), "reverse")
+                self.assertEqual(device.current_timer(), 300)
 
 
     def test_get_propane_tank_updated_states_from_api(self):

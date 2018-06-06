@@ -6,7 +6,7 @@ import urllib.parse
 import requests
 
 from pywink.devices import types as device_types
-from pywink.devices.factory import build_device
+from pywink.devices.factory import build_device, get_object_type
 
 try:
     import urllib3
@@ -629,7 +629,7 @@ def get_devices_from_response_dict(response_dict, device_type):
     api_interface = WinkApiInterface()
 
     for item in items:
-        if item.get("object_type") in device_type:
+        if get_object_type(item) in device_type:
             _devices = build_device(item, api_interface)
             for device in _devices:
                 devices.append(device)

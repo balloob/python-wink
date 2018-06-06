@@ -94,3 +94,66 @@ class WinkFan(WinkDevice):
         })
 
         self._update_state_from_response(resp)
+
+
+# pylint: disable=too-many-public-methods
+class WinkGeZwaveFan(WinkFan):
+    """
+    Represents a GE-Z-Wave In wall fan switch. Wink recognizes this as a light
+    bulb dimmer switch but in reality it is a fan with 3 speeds.
+    """
+    _to_brightness = {
+        "lowest": 0.33,
+        "low": 0.33,
+        "medium": 0.66,
+        "high": 1.0,
+        "auto": 0.66
+    }
+
+    _to_speed = {
+        0.33: "low",
+        0.66: "medium",
+        1.0: "high"
+    }
+
+    def fan_speeds(self):
+        return ["low", "medium", "high"]
+
+    def fan_directions(self):
+        return []
+
+    def fan_timer_range(self):
+        return []
+
+    def current_fan_speed(self):
+        return self._to_speed[self._last_reading.get('brightness', 0.33)]
+
+    def current_fan_direction(self):
+        return None
+
+    def current_timer(self):
+        return None
+
+    def set_state(self, state, speed=None):
+        """
+        :param state: bool
+        :param speed: a string one of ["lowest", "low",
+            "medium", "high", "auto"] defaults to last speed
+        :return: nothing
+        """
+        desired_state = {"powered": state}
+        if state:
+            brightness = self._to_brightness.get(speed or self.current_fan_speed(), 0.33)
+            desired_state.update({'brightness': brightness})
+
+        response = self.api_interface.set_device_state(self, {
+            "desired_state": desired_state
+        })
+
+        self._update_state_from_response(response)
+
+    def set_fan_direction(self, direction):
+        pass
+
+    def set_fan_timer(self, timer):
+        pass

@@ -1,0 +1,65 @@
+{
+   "device_manufacturer":"ge",
+   "upc_id":"11",
+   "manufacturer_device_id":null,
+   "capabilities":{
+
+   },
+   "order":0,
+   "linked_service_id":null,
+   "model_name":"In-Wall Fan Control",
+   "hidden_at":null,
+   "light_bulb_id":"239549",
+   "locale":"en_us",
+   "icon_id":"18",
+   "triggers":[
+
+   ],
+   "icon_code":"light_bulb-fan_light",
+   "uuid":"4bf38640-ad82-xxxxxxx-yyyyyy",
+   "radio_type":"zwave",
+   "gang_id":null,
+   "local_id":"25",
+   "object_type":"light_bulb",
+   "location":"",
+   "upc_code":"ge_jasco-in-wall-fan2",
+   "units":{
+
+   },
+   "manufacturer_device_model":"ge_jasco_in_wall_fan",
+   "created_at":1504074521,
+   "object_id":"2928587",
+   "updated_at":1510211919,
+   "lat_lng":[
+      null,
+      null
+   ],
+   "name":"Ceiling Fan",
+   "primary_upc_code":"ge_jasco-in-wall-fan",
+   "hub_id":"302528",
+   "last_reading":{
+      "powered":false,
+      "desired_brightness_updated_at":1528308568.0060544,
+      "desired_brightness_changed_at":1528308568.0060544,
+      "connection_updated_at":1528308785.0084982,
+      "powered_updated_at":1528308785.0084982,
+      "brightness_updated_at":1528308785.0084982,
+      "connection":true,
+      "desired_powered_changed_at":1528308566.4751642,
+      "connection_changed_at":1526605027.361241,
+      "desired_powered_updated_at":1528308739.3037217,
+      "powered_changed_at":1528308768.4366276,
+      "brightness_changed_at":1528308567.9741776,
+      "brightness":0.66
+   },
+   "desired_state":{
+      "powered":false,
+      "brightness":0.66
+   },
+   "subscription": {
+     "pubnub": {
+      "subscribe_key": "sub-c-f7bf7f7e-054XXXXXXXXXXXXXX",
+      "channel": "024254c58e06548f0aXXXXXXXXXXXXXXXXX0ce|light_bulb-239549|user-123456"
+    }
+  }
+}

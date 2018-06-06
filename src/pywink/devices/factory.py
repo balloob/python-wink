@@ -13,7 +13,7 @@ from pywink.devices.shade import WinkShade
 from pywink.devices.siren import WinkSiren
 from pywink.devices.key import WinkKey
 from pywink.devices.thermostat import WinkThermostat
-from pywink.devices.fan import WinkFan
+from pywink.devices.fan import WinkFan, WinkGeZwaveFan
 from pywink.devices.remote import WinkRemote
 from pywink.devices.hub import WinkHub
 from pywink.devices.powerstrip import WinkPowerStrip, WinkPowerStripOutlet
@@ -35,7 +35,7 @@ from pywink.devices.water_heater import WinkWaterHeater
 # pylint: disable=too-many-branches, too-many-statements
 def build_device(device_state_as_json, api_interface):
     # This is used to determine what type of object to create
-    object_type = device_state_as_json.get("object_type")
+    object_type = get_object_type(device_state_as_json)
     new_objects = []
 
     if object_type == device_types.LIGHT_BULB:
@@ -63,7 +63,10 @@ def build_device(device_state_as_json, api_interface):
     elif object_type == device_types.THERMOSTAT:
         new_objects.append(WinkThermostat(device_state_as_json, api_interface))
     elif object_type == device_types.FAN:
-        new_objects.append(WinkFan(device_state_as_json, api_interface))
+        if __is_ge_zwave_fan(device_state_as_json):
+            new_objects.append(WinkGeZwaveFan(device_state_as_json, api_interface))
+        else:
+            new_objects.append(WinkFan(device_state_as_json, api_interface))
     elif object_type == device_types.REMOTE:
         # The lutron Pico remote doesn't follow the API spec and
         # provides no benefit as a device in this library.
@@ -114,6 +117,16 @@ def build_device(device_state_as_json, api_interface):
         new_objects.append(WinkWaterHeater(device_state_as_json, api_interface))
 
     return new_objects
+
+
+def get_object_type(device_state_as_json):
+    if __is_ge_zwave_fan(device_state_as_json):
+        return device_types.FAN
+    return device_state_as_json.get("object_type")
+
+
+def __is_ge_zwave_fan(device_state_as_json):
+    return device_state_as_json.get("manufacturer_device_model") == "ge_jasco_in_wall_fan"
 
 
 def __get_subsensors_from_device(item, api_interface):

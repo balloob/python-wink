@@ -50,7 +50,7 @@
       "desired_powered_updated_at":1528308739.3037217,
       "powered_changed_at":1528308768.4366276,
       "brightness_changed_at":1528308567.9741776,
-      "brightness":0.66
+      "brightness":0.1
    },
    "desired_state":{
       "powered":false,

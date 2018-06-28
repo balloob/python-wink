@@ -38,9 +38,9 @@ class GeZwaveFanTests(unittest.TestCase):
         has_timer_range = fan.fan_timer_range()
         self.assertEqual(len(has_timer_range), 0)
 
-    def test_fan_speed_is_medium(self):
+    def test_fan_speed_is_low(self):
         fan = get_devices_from_response_dict(self.response_dict, device_types.FAN)[0]
-        self.assertEqual(fan.current_fan_speed(), "medium")
+        self.assertEqual(fan.current_fan_speed(), "low")
 
     def test_fan_state(self):
         fan = get_devices_from_response_dict(self.response_dict, device_types.FAN)[0]

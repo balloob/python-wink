@@ -110,12 +110,6 @@ class WinkGeZwaveFan(WinkFan):
         "auto": 0.66
     }
 
-    _to_speed = {
-        0.33: "low",
-        0.66: "medium",
-        1.0: "high"
-    }
-
     def fan_speeds(self):
         return ["low", "medium", "high"]
 
@@ -126,7 +120,12 @@ class WinkGeZwaveFan(WinkFan):
         return []
 
     def current_fan_speed(self):
-        return self._to_speed[self._last_reading.get('brightness', 0.33)]
+        brightness = self._last_reading.get('brightness', 0.33)
+        if brightness <= 0.33:
+            return "low"
+        elif brightness <= 0.66:
+            return "medium"
+        return "high"
 
     def current_fan_direction(self):
         return None
